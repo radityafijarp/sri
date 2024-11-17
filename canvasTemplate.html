@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+	<title>JavaScript page template</title>
+		<meta charset="utf-8" />
+
+</head>
+<body>
+	<canvas id="myCanvas" width="600" height="300"> 
+	<script>
+    //javascript goes here
+	
+	//get reference to canvas - just use these two lines
+	//the dot notation refers to the document (the webpage) and asks for a function in the document.
+	//It means it's not looking for the function in here. Similarly, getContext is a function inside
+	//the canvas called c, so that's not in our javascript here either. 
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+
+	
+	//call my function to draw a line. Give it values for start and end
+	// Horizontal
+	// drawLine(ctx,0,0,300,0); //this is just an example
+	// drawLine(ctx,5,0,300,5);
+	// drawLine(ctx,10,0,300,10);
+	// (1)
+	
+	function decimalToHexadecimal(decimal) {
+    if (decimal < 0) {
+        throw new Error("Only non-negative numbers are supported.");
+    }
+    return decimal.toString(16).toUpperCase(); // Convert to hexadecimal and uppercase
+	}
+
+	function addHexadecimals(hex1, hex2) {
+    // Convert hexadecimal inputs to decimal
+    const decimal1 = parseInt(hex1, 16);
+    const decimal2 = parseInt(hex2, 16);
+
+    // Add the decimal values
+    const sum = decimal1 + decimal2;
+
+    // Convert the result back to hexadecimal
+    return sum.toString(16).toUpperCase();
+	}
+
+	for (i=0;i<=295;i=i+10){
+		baseColor ="6a0f03"
+		color = "#"+addHexadecimals(decimalToHexadecimal(i),baseColor)
+		console.log(color)
+		drawLine(ctx,i,0,300,i,color);
+	}
+	// 2
+	// for (i=0;i<=295;i=i+10){
+	// 	drawLine(ctx,300-i,300,0,300-i,"#346A03");
+	// }
+	// // 3
+	// for (i=0;i<=295;i=i+10){
+	// 	drawLine(ctx,0,i,300-i,0,"yellow");
+	// }
+	// // 4
+	// for (i=0;i<=295;i=i+10){
+	// 	drawLine(ctx,i,300,300,300-i,"green");
+	// }
+
+
+	// // Vertical
+	// // drawLine(ctx,300,0,300,300);
+	// drawLine(ctx,295,0,300,295);
+	// drawLine(ctx,290,0,300,290);
+	// for (i=295;i>=0;i=i-10){
+	// 	drawLine(ctx,i,0,300,i);
+
+	// }
+
+	// Flip (2)
+	
+	// for (i=0;i<=295;i=i+10){
+	// 	drawLine(ctx,i,300,0,i);
+
+	// }
+
+	// for (i=295;i>=0;i=i-10){
+	// 	drawLine(ctx,i,300,0,i);
+
+	// }
+
+	// Flip (3)
+	
+	// for (i=0;i<=295;i=i+10){
+	// 	drawLine(ctx,300,i,i,0);
+
+	// }
+
+	// for (i=295;i>=0;i=i-10){
+	// 	drawLine(ctx,0,i,i,i);
+
+	// }
+
+
+	//You have the tools.... using the drawLine function, draw a spirograph pattern
+	
+		
+		
+		
+	//this function draws a line from x,y start to x,y end
+	function drawLine(ctx,xStart,yStart,xEnd,yEnd,color)
+	{
+		ctx.beginPath();
+		ctx.moveTo(xStart,yStart);
+		ctx.lineTo(xEnd,yEnd);
+		ctx.strokeStyle = color;
+		ctx.stroke();
+		ctx.closePath();
+	}
+	
+	
+	
+	</script>
+	
+</body>
+
+</html>
