@@ -6,7 +6,8 @@
 
 </head>
 <body>
-	<canvas id="myCanvas" width="600" height="300"> 
+	<canvas id="myCanvas" width="300" height="300"> </canvas>
+	<canvas  id="myCanvas2" width="171" height="171"></canvas>
 	<script>
     //javascript goes here
 	
@@ -17,13 +18,6 @@
 	var c = document.getElementById("myCanvas");
 	var ctx = c.getContext("2d");
 
-	
-	//call my function to draw a line. Give it values for start and end
-	// Horizontal
-	// drawLine(ctx,0,0,300,0); //this is just an example
-	// drawLine(ctx,5,0,300,5);
-	// drawLine(ctx,10,0,300,10);
-	// (1)
 	
 	function decimalToHexadecimal(decimal) {
     if (decimal < 0) {
@@ -44,64 +38,40 @@
     return sum.toString(16).toUpperCase();
 	}
 
-	for (i=0;i<=295;i=i+10){
+	function createSpirograph(ctx,size,rotate){
+		if (rotate==true){
+			ctx.rotate(Math.PI / 4);
+			ctx.translate(130,-80);
+		}
+		 // 45 degrees = Math.PI / 4 radians
+		
+		for (i=0;i<=size-5;i=i+10){
 		baseColor ="6a0f03"
 		color = "#"+addHexadecimals(decimalToHexadecimal(i),baseColor)
 		console.log(color)
-		drawLine(ctx,i,0,300,i,color);
+		drawLine(ctx,i,0,size,i,color);
+		}
+		// 2
+		for (i=0;i<=size-5;i=i+10){
+			drawLine(ctx,size-i,size,0,size-i,"#346A03");
+		}
+		// 3
+		for (i=0;i<=size-5;i=i+10){
+			drawLine(ctx,0,i,size-i,0,"yellow");
+		}
+		// 4
+		for (i=0;i<=size-5;i=i+10){
+			drawLine(ctx,i,size,size,size-i,"green");
+		}
+
 	}
-	// 2
-	// for (i=0;i<=295;i=i+10){
-	// 	drawLine(ctx,300-i,300,0,300-i,"#346A03");
-	// }
-	// // 3
-	// for (i=0;i<=295;i=i+10){
-	// 	drawLine(ctx,0,i,300-i,0,"yellow");
-	// }
-	// // 4
-	// for (i=0;i<=295;i=i+10){
-	// 	drawLine(ctx,i,300,300,300-i,"green");
-	// }
-
-
-	// // Vertical
-	// // drawLine(ctx,300,0,300,300);
-	// drawLine(ctx,295,0,300,295);
-	// drawLine(ctx,290,0,300,290);
-	// for (i=295;i>=0;i=i-10){
-	// 	drawLine(ctx,i,0,300,i);
-
-	// }
-
-	// Flip (2)
 	
-	// for (i=0;i<=295;i=i+10){
-	// 	drawLine(ctx,i,300,0,i);
-
-	// }
-
-	// for (i=295;i>=0;i=i-10){
-	// 	drawLine(ctx,i,300,0,i);
-
-	// }
-
-	// Flip (3)
+	// canvas 1
+	createSpirograph(ctx,300,false);
+	createSpirograph(ctx,100,false);
+	createSpirograph(ctx,170,true);
 	
-	// for (i=0;i<=295;i=i+10){
-	// 	drawLine(ctx,300,i,i,0);
 
-	// }
-
-	// for (i=295;i>=0;i=i-10){
-	// 	drawLine(ctx,0,i,i,i);
-
-	// }
-
-
-	//You have the tools.... using the drawLine function, draw a spirograph pattern
-	
-		
-		
 		
 	//this function draws a line from x,y start to x,y end
 	function drawLine(ctx,xStart,yStart,xEnd,yEnd,color)

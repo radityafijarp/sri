@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+	<title>Hangman</title>
+</head>
+<body>
+	<canvas id="myCanvas" width="600" height="300"> 
+	<script>
+    //javascript goes here
+	
+	//get reference to canvas - just use these two lines
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+
+	//listening for key presses
+	//what I capture, where to send it
+	//keyCheck is a function, it's below the initial setup code
+	document.addEventListener("keydown",keyCheck); 
+
+
+	//call my function to draw a line. Give it values for start and end
+	//drawLine(ctx,0,0,300,300); //this is just an example
+
+	var guess;
+	
+	//you need to set your own answer (use capitals, spaces are fine)
+	var film = "FROZEN DATA";
+	
+	//this is how you turn the film string into an array
+	var filmArray = Array.from(film);
+	
+	
+	//this is how you write the blanks for the answer
+	//notice I used array.length - that's the length of the array
+	//so I could change the answer and it would still be fine
+	//I've set x to move across the screen, and y to be near the bottom
+	//this uses my new drawText function - at the bottom with drawLine
+	for(let i=0;i<filmArray.length;i++){
+		//drawText(ctx,filmArray[i],20+i*20,290);
+		drawText(ctx,"_",20+i*20,290);
+	}
+
+	function gameOver(){
+		var text="GAME OVER"
+		var gameOverArr = Array.from(text);
+		for(let i=0;i<gameOverArr.length;i++){
+		//drawText(ctx,filmArray[i],20+i*20,290);
+			drawText(ctx,gameOverArr[i],20+i*20,290);
+		}
+	}
+
+	function checkLetter(letter,array){
+		for (i=0;i<array.length;i++){
+			if(array[i]==letter){
+				return true
+			}
+		}
+		return false
+	}
+	
+	line_number=0
+	lines = {
+		0:[400,290,600,290],
+		1:[500,290,500,100],
+		2:[400,100,500,100],
+		3:[470,100,500,130],
+		4:[400,100,400,130],
+		6:[400,140,400,160],
+		7:[380,160,400,160],
+		8:[400,160,400,200],
+		9:[400,160,420,160]
+
+		
+	}
+	
+	//this is called every time a key is pressed
+	//you can add code to check for the right letter here
+	function keyCheck(e){	
+		//this is the letter you've typed in
+		var letter = String.fromCharCode(e.keyCode);
+
+		console.log(letter);
+		for(i=0;i<filmArray.length;i++){
+			if (filmArray[i]==letter){
+				drawText(ctx,letter,20+i*20,290);
+			}
+		}
+				
+		if (checkLetter(letter,filmArray)==false){
+			if(line_number==5){
+				drawText(ctx,"O",393,140);
+				line_number=line_number+1
+			} else if (line_number<=9){
+				x_start=lines[line_number][0]
+				y_start=lines[line_number][1]
+				x_end=lines[line_number][2]
+				y_end=lines[line_number][3]
+				drawLine(ctx,x_start,y_start,x_end,y_end)
+				line_number=line_number+1
+				console.log(line_number)
+			} else(
+				gameOver()
+			)
+			
+
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+	
+	
+	
+	//this function draws a line from x,y start to x,y end
+	function drawLine(ctx,xStart,yStart,xEnd,yEnd)
+	{
+		ctx.beginPath();
+		ctx.moveTo(xStart,yStart);
+		ctx.lineTo(xEnd,yEnd);
+		ctx.stroke();
+		ctx.closePath();
+	}
+	
+	//this function writes text on the canvas
+	function drawText(ctx,text,x,y)
+	{
+		ctx.fillStyle = "black";
+		ctx.font = "16px Arial";
+		ctx.fillText(text,x,y);
+	}
+	
+
+	
+	
+	</script>
+	
+</body>
+
+</html>
